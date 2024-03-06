@@ -3,7 +3,6 @@
 #include <cstdlib>
 #include <ctime>
 #include <random>
-#include <thread>
 
 void drawline(int n, char symbol)
 {
@@ -36,9 +35,10 @@ int main()
     std::cout << "Choose (y/n) : ";
 
     std::cin >> choice;
+    
 
     printrules();
-
+teleport:
     std::cout << "Please write your name : ";
     std::cin >> name;
     std::cout << std::endl;
@@ -50,10 +50,9 @@ int main()
         case 'y':
             std::cout << "You choosed play game! Let`s go" << std::endl;
         case 'n':
- 
             break;
     }
-    std::srand(std::time(NULL));
+    std::srand(unsigned(std::time(NULL)));
 
     std::cout << "Guess your number to bet between 1 to 10 :";
     
@@ -65,9 +64,11 @@ int main()
         }
     }
    
-    
+    std::random_device dev;
+    std::mt19937 rng(dev());
+    std::uniform_int_distribution<std::mt19937::result_type> dist6(1, 10); // distribution in range [1, 10]
 
-    dice = std::rand() + 1;
+    dice = dist6(rng);
 
     do
     {
@@ -92,16 +93,26 @@ int main()
     std::cout << "Do you wanna play again? " << std::endl;
     std::cout << "Choose (y/n) : ";
 
+    
     std::cin >> choice;
-
-    while (choice != 'y' && choice !='n') //need to be fixed (not working)
+    do//need to be fixed (not working)
     {
+        
         if (choice == 'y')
-            continue;
-        else
+        {
+            continue;// need jump(--noob step)
+        }
+        else if(choice == 'n')
+        {
             std::cout << "Goodbye! See you soon" << std::endl;
-            break;
-    }
+            exit(0);
+        }
+             
+    } while (choice != 'y' && choice != 'n');
+
+   
+    
+    goto teleport;
         
 
 }
