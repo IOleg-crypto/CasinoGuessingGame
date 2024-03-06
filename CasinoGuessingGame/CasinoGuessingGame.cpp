@@ -94,7 +94,7 @@ int main()
 
     std::cin >> choice;
 
-    while (choice != 'y' || choice !='n') //need to be fixed 
+    while (choice != 'y' && choice !='n') //need to be fixed (not working)
     {
         if (choice == 'y')
             continue;
