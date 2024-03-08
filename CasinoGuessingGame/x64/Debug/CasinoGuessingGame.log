@@ -1,3 +1,3 @@
 ﻿  CasinoGuessingGame.cpp
-C:\Users\38063\source\repos\CasinoGuessingGame\CasinoGuessingGame\CasinoGuessingGame.cpp(33,18): warning C4129: 'H': unrecognized character escape sequence
+C:\Users\38063\source\repos\CasinoGuessingGame\CasinoGuessingGame\CasinoGuessingGame.cpp(49,18): warning C4129: 'H': unrecognized character escape sequence
   CasinoGuessingGame.vcxproj -> C:\Users\38063\source\repos\CasinoGuessingGame\x64\Debug\CasinoGuessingGame.exe

@@ -3,6 +3,12 @@
 #include <cstdlib>
 #include <ctime>
 #include <random>
+#include <conio.h>
+#include <stdio.h>
+#include <thread>
+#include <chrono>
+#include <Windows.h>
+using namespace std::chrono_literals;
 
 void drawline(int n, char symbol)
 {
@@ -17,10 +23,20 @@ void printrules()
     std::cout << "\t2. If you win you will get 10 times of money you bet\n";
     std::cout << "\t3. If you bet on wrong number you will lose your betting amount\n\n";
 }
+void print_rolling(std::string &roll , int n)
+{
+    for (int i = 0; i < n; i++) {
+        system("CLS");
+        std::cout << roll << std::endl;
+        std::this_thread::sleep_for(std::chrono::seconds(5s));
+        system("CLS");
+    }
+}
 int main()
 {
     //local values
     std::string name;
+    std::string rolling;
     int dice = 0;
     char choice;
     int deposit = 0;
@@ -38,7 +54,6 @@ int main()
     
 
     printrules();
-teleport:
     std::cout << "Please write your name : ";
     std::cin >> name;
     std::cout << std::endl;
@@ -52,11 +67,11 @@ teleport:
         case 'n':
             break;
     }
-    std::srand(unsigned(std::time(NULL)));
+    std::srand(static_cast<unsigned>(std::time(NULL)));
 
     std::cout << "Guess your number to bet between 1 to 10 :";
     
-    while (guess <= 0 || guess > 10) {
+    while (guess <= 0 || guess > 10) { //fail with true in while statement
         std::cin >> guess;
         if (guess < 0 || guess > 10) {
             std::cout << "Please check the number!! should be between 1 to 10\n"
@@ -78,6 +93,15 @@ teleport:
             std::cout << "Your betting amount is more than your current balance\n"
             << "\nRe-enter data\n ";
     } while (bettingAmount > amount);
+    //rolling code
+    rolling = "Rolling............";
+   // const auto start = std::chrono::high_resolution_clock::now();
+    std::this_thread::sleep_for(std::chrono::seconds(5s));
+    print_rolling(rolling , dice);
+    std::this_thread::sleep_for(std::chrono::seconds(5s));
+    //const auto end = std::chrono::high_resolution_clock::now();
+    //const std::chrono::duration<double, std::milli> elapsed = end - start;
+    
 
     if (dice == guess)
     {
@@ -91,29 +115,27 @@ teleport:
     }
 
     std::cout << "Do you wanna play again? " << std::endl;
-    std::cout << "Choose (y/n) : ";
 
-    
-    std::cin >> choice;
-    do//need to be fixed (not working)
+
+    do
     {
-        
+        std::cout << "Choose (y/n) : ";
+        std::cin >> choice;
+        system("CLS");
         if (choice == 'y')
         {
-            continue;// need jump(--noob step)
+            return main();
         }
         else if(choice == 'n')
         {
             std::cout << "Goodbye! See you soon" << std::endl;
             exit(0);
         }
+        else
+        {
+            std::cout << "Try again!" << std::endl;
+        }
              
-    } while (choice != 'y' && choice != 'n');
-
-   
-    
-    goto teleport;
-        
-
+    } while (true);
 }
 
